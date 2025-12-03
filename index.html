@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galaxy Store - Vòng quay</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #3a0078;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+}
+
+/* Banner */
+.header {
+    background: #b06bff;
+    padding: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    border-radius: 15px;
+    margin: 20px auto;
+    width: 80%;
+}
+
+/* Vòng quay */
+#wheel {
+    width: 280px;
+    transition: transform 4s cubic-bezier(0.25, 1, 0.3, 1);
+}
+
+/* Khung nhập */
+.input-row {
+    background: #add8ff;
+    padding: 8px;
+    width: 70%;
+    margin: 15px auto;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-row input {
+    width: 75%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+}
+
+.tick {
+    background: #1ecf60;
+    color: white;
+    font-size: 25px;
+    padding: 12px 18px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Popup */
+.popup-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    background: #4169ff;
+    padding: 35px;
+    width: 75%;
+    border-radius: 15px;
+    font-size: 26px;
+}
+
+.ok-btn {
+    margin-top: 20px;
+    background: #1ecf60;
+    padding: 12px 25px;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="header">GALAXY STORE</div>
+
+<img id="wheel" src="https://i.imgur.com/8fFSvsE.png">
+
+<!-- Số điện thoại -->
+<div class="input-row">
+    <input id="phone" type="number" placeholder="số điện thoại">
+    <div class="tick" onclick="spinWheel()">✔</div>
+</div>
+
+<!-- Mã trực tiếp nhận -->
+<div class="input-row">
+    <input id="code" type="text" placeholder="Mã trực tiếp nhận">
+    <div class="tick" onclick="checkCode()">✔</div>
+</div>
+
+<!-- Popup -->
+<div class="popup-bg" id="popup-bg">
+    <div class="popup" id="popup-text">
+        Nội dung popup
+        <div class="ok-btn" onclick="closePopup()">OK</div>
+    </div>
+</div>
+
+<script>
+let wheel = document.getElementById("wheel");
+let popupBg = document.getElementById("popup-bg");
+let popupText = document.getElementById("popup-text");
+
+// Mã đúng
+const correctCode = "lop9a3";
+
+// Hàm quay vòng
+function spinWheel() {
+    let phone = document.getElementById("phone").value;
+
+    if (phone.length < 9) {
+        showPopup("Số điện thoại không hợp lệ!");
+        return;
+    }
+
+    // Xoay ngẫu nhiên
+    let randomDeg = 3600 + Math.floor(Math.random() * 360);
+    wheel.style.transform = `rotate(${randomDeg}deg)`;
+
+    // Sau khi xoay xong → hiện popup troll
+    setTimeout(() => {
+        showPopup("NHẬN THÀNH CÔNG<br> XIN MỜI BẠN BỊ LỪA ✔");
+        document.getElementById("phone").value = "";
+    }, 4100);
+}
+
+// Kiểm tra mã nhận quà
+function checkCode() {
+    let code = document.getElementById("code").value.trim();
+
+    if (code === correctCode) {
+        showPopup("NHẬN THÀNH CÔNG<br>BA CÂY NHAN ✔");
+    } else {
+        showPopup("Mã không hợp lệ!");
+    }
+}
+
+function showPopup(msg) {
+    popupText.innerHTML = msg + '<div class="ok-btn" onclick="closePopup()">OK</div>';
+    popupBg.style.display = "flex";
+}
+
+function closePopup() {
+    popupBg.style.display = "none";
+}
+</script>
+
+</body>
+  </html>
