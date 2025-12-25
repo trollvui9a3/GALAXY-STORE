@@ -1,2 +1,2 @@
-# GALAXY-STORE
-Chợ máy galaxy tặng quà 
+# QUÀ NOEL VN
+ÔNG GIÀ NOEL TỚI TẶNG CÁC CHÁU NGOAN NHA
