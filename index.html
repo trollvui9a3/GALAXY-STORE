@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- KHÓA ZOOM -->
+<!-- KHÓA ZOOM + GIỮ TỈ LỆ -->
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -23,6 +23,7 @@ body{
 .snow{
   position:fixed;
   top:-10px;
+  color:white;
   user-select:none;
   animation:fall linear infinite;
 }
@@ -38,8 +39,9 @@ body{
   background:#991b1b;
   display:none;
   align-items:center;
-  justify-content:space-between;
+  justify-content:flex-end;
   padding:0 14px;
+  gap:12px;
 }
 .money{
   background:#16a34a;
@@ -85,7 +87,6 @@ button{
   background:white;
   color:#991b1b;
   font-weight:bold;
-  cursor:pointer;
 }
 .hidden{display:none}
 
@@ -118,14 +119,15 @@ button{
 
 <body>
 
-<!-- 🔊 NHẠC NOEL (LINK – ĐỔI TẠI ĐÂY) -->
+<!-- 🔊 NHẠC NOEL -->
 <audio id="music" loop>
-  <!-- 👉 DÁN LINK MP3 CỦA M VÀO -->
-  <source src="https://github.com/trollvui9a3/GALAXY-STORE/raw/refs/heads/main/Deck%20The%20Halls%20(Remix%20TikTok)%20-%20Ho%20Ho%20Ho%20Merry%20Christmas%20%20Hot%20Music%20Christmas%20Song%202025%20-%201%20Gi%E1%BB%9D%20Chill%20(youtube).mp3">
-</audio>
+  <!-- 👉 ĐỔI LINK NHẠC Ở ĐÂY -->
+  <source src=""</audio>
 
 <div class="header" id="header">
-  <div class="money">💰 1.000.000 ₫</div>
+  <!-- 👉 ĐỔI TIỀN Ở ĐÂY -->
+  <div class="money" 1tr ₫</div>
+  <!-- 👉 ĐỔI AVATAR Ở ĐÂY -->
   <div class="avatar">🎅</div>
 </div>
 
@@ -136,7 +138,8 @@ button{
   <!-- LOGIN -->
   <div id="login">
     <p>Nhập <b>MÃ SỰ KIỆN</b></p>
-    <input id="code" placeholder="Locdzvaiz">
+    <!-- 👉 ĐỔI GỢI Ý MÃ -->
+    <input id="code" placeholder="NOEL2025">
     <button onclick="checkCode()">Xác nhận</button>
     <p id="err"></p>
   </div>
@@ -153,7 +156,6 @@ button{
     <button onclick="troll(1)">🎁 1.000.000₫</button>
     <button onclick="troll(2)">🎁 iPhone 15</button>
     <button onclick="troll(3)">🎁 Kim cương</button>
-    <button onclick="shareLink()">🔗 Chia sẻ cho bạn bè</button>
   </div>
 
   <div id="msg" class="hidden"></div>
@@ -161,13 +163,9 @@ button{
 </div>
 
 <script>
-/* 🎵 NHẠC CỰC TO */
-const music = document.getElementById("music");
-music.volume = 2.0; // MAX
-
-// mobile cần tương tác
+/* 🎵 TỰ PHÁT NHẠC (mobile cần click) */
 document.body.addEventListener("click",()=>{
-  music.play();
+  document.getElementById("music").play();
 },{once:true});
 
 /* ❄ TUYẾT */
@@ -182,7 +180,7 @@ for(let i=0;i<50;i++){
   document.body.appendChild(s);
 }
 
-/* 👉 MÃ SỰ KIỆN */
+/* 👉 ĐỔI MÃ SỰ KIỆN Ở ĐÂY */
 const REAL_CODE="thiktaordk";
 
 function checkCode(){
@@ -206,7 +204,7 @@ function checkCode(){
   },300);
 }
 
-/* 🎁 TROLL */
+/* TROLL */
 function troll(t){
   gift.classList.add("hidden");
   msg.classList.remove("hidden");
@@ -219,24 +217,13 @@ function troll(t){
     if(c<=0){
       clearInterval(cd);
       box.classList.remove("shake");
-      if(t==1) msg.innerHTML="🎄 Chúc mừng đc con cak!<br>Tiền là ảo tình bạn là thật :3 🤡";
-      if(t==2) msg.innerHTML="📱 iPhone đã gửi…<br>trong mơ 😴";
+      if(t==1) msg.innerHTML="🎄 Noel vui vẻ!<br>Tiền là ảo bạn là thật 🤡";
+      if(t==2) msg.innerHTML="📱 iPhone gửi trong mơ 😴";
       if(t==3) msg.innerHTML="💎 Kim cương = niềm tin 😆";
     }
   },1000);
 }
-
-/* 🔗 CHIA SẺ – SAO CHÉP LINK */
-function shareLink(){
-  navigator.clipboard.writeText(location.href)
-  .then(()=>{
-    alert("✅ Đã sao chép link!\nGửi cho bạn bè thôi 😈");
-  })
-  .catch(()=>{
-    alert("❌ Không copy được link");
-  });
-}
 </script>
 
 </body>
-</html>
+  </html>
