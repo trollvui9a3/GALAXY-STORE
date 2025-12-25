@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+
+<!-- KHÓA ZOOM -->
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>🎄 Nhận quà Noel</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(180deg,#b91c1c,#ef4444);
+  color:white;
+  overflow:hidden;
+}
+
+/* TUYẾT */
+.snow{
+  position:fixed;
+  top:-10px;
+  user-select:none;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh);}
+}
+
+/* HEADER */
+.header{
+  position:fixed;
+  top:0;left:0;right:0;
+  height:56px;
+  background:#991b1b;
+  display:none;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+}
+.money{
+  background:#16a34a;
+  padding:6px 10px;
+  border-radius:8px;
+  font-weight:bold;
+}
+.avatar{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:white;
+  color:#991b1b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+/* MAIN */
+.wrap{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.box{
+  background:#7f1d1d;
+  width:340px;
+  max-width:90vw;
+  padding:28px;
+  border-radius:16px;
+  text-align:center;
+}
+input,button{
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:none;
+  margin-top:10px;
+  font-size:16px;
+}
+button{
+  background:white;
+  color:#991b1b;
+  font-weight:bold;
+  cursor:pointer;
+}
+.hidden{display:none}
+
+/* LOADING */
+.bar{
+  width:100%;
+  height:12px;
+  background:#fecaca;
+  border-radius:6px;
+  overflow:hidden;
+  margin:20px 0;
+}
+.fill{
+  height:100%;
+  width:0%;
+  background:white;
+}
+
+/* RUNG */
+.shake{animation:shake .15s infinite}
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-4px)}
+  50%{transform:translateX(4px)}
+  75%{transform:translateX(-4px)}
+  100%{transform:translateX(0)}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔊 NHẠC NOEL (LINK – ĐỔI TẠI ĐÂY) -->
+<audio id="music" loop>
+  <!-- 👉 DÁN LINK MP3 CỦA M VÀO -->
+  <source src="">
+</audio>
+
+<div class="header" id="header">
+  <div class="money">💰 1.000.000 ₫</div>
+  <div class="avatar">🎅</div>
+</div>
+
+<div class="wrap">
+<div class="box" id="box">
+  <h2>🎄 Nhận quà Noel 🎁</h2>
+
+  <!-- LOGIN -->
+  <div id="login">
+    <p>Nhập <b>MÃ SỰ KIỆN</b></p>
+    <input id="code" placeholder="Locdzvaiz">
+    <button onclick="checkCode()">Xác nhận</button>
+    <p id="err"></p>
+  </div>
+
+  <!-- LOADING -->
+  <div id="load" class="hidden">
+    <p>Đang xác minh…</p>
+    <div class="bar"><div class="fill" id="fill"></div></div>
+  </div>
+
+  <!-- QUÀ -->
+  <div id="gift" class="hidden">
+    <h3>🎁 Chọn quà</h3>
+    <button onclick="troll(1)">🎁 1.000.000₫</button>
+    <button onclick="troll(2)">🎁 iPhone 15</button>
+    <button onclick="troll(3)">🎁 Kim cương</button>
+    <button onclick="shareLink()">🔗 Chia sẻ cho bạn bè</button>
+  </div>
+
+  <div id="msg" class="hidden"></div>
+</div>
+</div>
+
+<script>
+/* 🎵 NHẠC CỰC TO */
+const music = document.getElementById("music");
+music.volume = 1.0; // MAX
+
+// mobile cần tương tác
+document.body.addEventListener("click",()=>{
+  music.play();
+},{once:true});
+
+/* ❄ TUYẾT */
+for(let i=0;i<50;i++){
+  let s=document.createElement("div");
+  s.className="snow";
+  s.innerHTML="❄";
+  s.style.left=Math.random()*100+"vw";
+  s.style.animationDuration=3+Math.random()*5+"s";
+  s.style.opacity=Math.random();
+  s.style.fontSize=10+Math.random()*16+"px";
+  document.body.appendChild(s);
+}
+
+/* 👉 MÃ SỰ KIỆN */
+const REAL_CODE="Locdzvaiz";
+
+function checkCode(){
+  if(code.value!==REAL_CODE){
+    err.innerText="❌ Sai mã rồi";
+    return;
+  }
+  login.classList.add("hidden");
+  load.classList.remove("hidden");
+
+  let p=0;
+  let t=setInterval(()=>{
+    p+=10;
+    fill.style.width=p+"%";
+    if(p>=100){
+      clearInterval(t);
+      load.classList.add("hidden");
+      gift.classList.remove("hidden");
+      header.style.display="flex";
+    }
+  },300);
+}
+
+/* 🎁 TROLL */
+function troll(t){
+  gift.classList.add("hidden");
+  msg.classList.remove("hidden");
+  box.classList.add("shake");
+  let c=5;
+  msg.innerHTML="⏳ Đang nhận quà…<br>"+c;
+  let cd=setInterval(()=>{
+    c--;
+    msg.innerHTML="⏳ Đang nhận quà…<br>"+c;
+    if(c<=0){
+      clearInterval(cd);
+      box.classList.remove("shake");
+      if(t==1) msg.innerHTML="🎄 Chúc mừng đc con cak!<br>Tiền là ảo tình bạn là thật :3 🤡";
+      if(t==2) msg.innerHTML="📱 iPhone đã gửi…<br>trong mơ 😴";
+      if(t==3) msg.innerHTML="💎 Kim cương = niềm tin 😆";
+    }
+  },1000);
+}
+
+/* 🔗 CHIA SẺ – SAO CHÉP LINK */
+function shareLink(){
+  navigator.clipboard.writeText(location.href)
+  .then(()=>{
+    alert("✅ Đã sao chép link!\nGửi cho bạn bè thôi 😈");
+  })
+  .catch(()=>{
+    alert("❌ Không copy được link");
+  });
+}
+</script>
+
+</body>
+</html>
